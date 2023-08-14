@@ -4,22 +4,22 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { appConfig, databaseConfig } from './config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserController } from './user/user.controller';
-import { UserService } from './user/user.service';
-import { AuthModule } from './auth/auth.module';
-import { Database } from './database/database';
-import { Database } from './providers/database/database';
-import { Database } from './common/database/database.providers';
+import { UserModule } from './user/user.module';
+import { CvModule } from './cv/cv.module';
+import { CvThemeModule } from './cv-theme/cv-theme.module';
+import { databaseProviders } from './common/database/database.providers';
 import { DatabaseModule } from './common/database/database.module';
 
 @Module({
     imports: [
-        ConfigModule.forRoot({ load: [appConfig] }),
+        ConfigModule.forRoot({ load: [appConfig], isGlobal: true }),
         TypeOrmModule.forRoot(databaseConfig),
-        AuthModule,
         DatabaseModule,
+        UserModule,
+        CvModule,
+        CvThemeModule,
     ],
-    controllers: [AppController, UserController],
-    providers: [AppService, UserService, Database],
+    controllers: [AppController],
+    providers: [AppService, ...databaseProviders],
 })
 export class AppModule {}

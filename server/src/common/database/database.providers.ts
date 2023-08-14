@@ -3,9 +3,17 @@ import dataSource from '../../config/datasource.config';
 
 export const databaseProviders = [
     {
-        provide: 'DATA_SOURCE',
+        provide: DataSource,
         useFactory: async (): Promise<DataSource> => {
-            return dataSource.initialize();
+            try {
+                if (!dataSource.isInitialized) {
+                    await dataSource.initialize();
+                }
+            } catch (error) {
+                console.error(error?.message);
+            }
+
+            return dataSource;
         },
     },
 ];

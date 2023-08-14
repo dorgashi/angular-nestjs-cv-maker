@@ -1,4 +1,4 @@
-interface AppConfigRO {
+interface AppConfig {
     port: number;
     database: {
         host: string;
@@ -7,9 +7,10 @@ interface AppConfigRO {
         password: string;
         database: string;
     };
+    jwtSecret: string;
 }
 
-export const appConfig = (): AppConfigRO => ({
+export const appConfig = (): AppConfig => ({
     port: Number(process.env.PORT) || 3000,
     database: {
         host: process.env.MYSQL_HOST,
@@ -18,4 +19,5 @@ export const appConfig = (): AppConfigRO => ({
         password: process.env.MYSQL_PASSWORD,
         database: process.env.MYSQL_DATABASE,
     },
+    jwtSecret: process.env.JWT_SECRET,
 });

@@ -1,27 +1,44 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { SomethingWentWrongException } from 'src/exceptions/something-went-wrong-exception';
 import { HttpStatus } from '@nestjs/common';
-import { UserEntity } from './user.entity';
+import { User } from './user.entity';
 import { CreateUserDto } from './dto';
-import { UserRO } from './user.interface';
 
 @Injectable()
 export class UserService {
     constructor(
-        @Inject('DATA_SOURCE')
-        private readonly userRepository: Repository<UserEntity>
+        @InjectRepository(User)
+        private userRepository: Repository<User>
     ) {}
 
-    async create(dto: CreateUserDto): Promise<UserRO> {
+    async findById(id: number): Promise<User | null> {
+        return this.userRepository.findOne({ where: { id } });
+    }
+
+    async findByUsername(username: string): Promise<User | null> {
+        return this.userRepository.findOne({ where: { username } });
+    }
+
+    async findByEmail(email: string): Promise<User | null> {
+        return this.userRepository.findOne({ where: { email } });
+    }
+
+    async create(dto: CreateUserDto): Promise<User | null> {
         const { email, username, password } = dto;
+        const existingUser = await this.userRepository.findOne({
+            where: { email: email },
+        });
 
-        const existingUser = this.userRepository.findOne({ where: { email } });
-
-        if (!existingUser) {
+        if (existingUser) {
             throw new HttpException(
-                { message: { errors: ['1', '2', '3'] } },
+                {
+                    message: {
+                        errors: ['User with that email already exists'],
+                    },
+                },
                 HttpStatus.BAD_REQUEST
             );
         }
@@ -35,19 +52,10 @@ export class UserService {
 
             const newUser = await this.userRepository.save(user);
 
-            return this.buildUserRO(newUser);
+            return newUser;
         } catch (err) {
+            console.log(err);
             throw new SomethingWentWrongException();
         }
-    }
-
-    buildUserRO(user: UserEntity): UserRO {
-        return {
-            user: {
-                email: user.email,
-                username: user.username,
-                token: 'asdf',
-            },
-        };
     }
 }

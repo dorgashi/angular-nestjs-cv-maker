@@ -1,20 +1,24 @@
 import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from 'typeorm';
-import { IsEmail } from 'class-validator';
+import { Exclude, Expose } from 'class-transformer';
+
 import * as argon2 from 'argon2';
 
-@Entity('user')
-export class UserEntity {
-    @PrimaryGeneratedColumn()
+@Entity()
+export class User {
+    @PrimaryGeneratedColumn({ unsigned: true })
+    @Exclude()
     id: number;
 
-    @Column()
+    @Column({ nullable: false, length: 255 })
+    @Expose()
     username: string;
 
-    @Column()
-    @IsEmail()
+    @Column({ nullable: false, length: 255 })
+    @Expose()
     email: string;
 
-    @Column()
+    @Column({ nullable: false, length: 255 })
+    @Exclude()
     password: string;
 
     @BeforeInsert()

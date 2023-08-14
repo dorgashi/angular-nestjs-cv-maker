@@ -40,3 +40,5 @@ lerna-debug.log*
 .env.development
 .env.production.local
 .env.production
+
+src/migrations

@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthController } from './auth.controller';
+import { CvThemeController } from './cv-theme.controller';
 
-describe('AuthController', () => {
-    let controller: AuthController;
+describe('CvThemeController', () => {
+    let controller: CvThemeController;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            controllers: [AuthController],
+            controllers: [CvThemeController],
         }).compile();
 
-        controller = module.get<AuthController>(AuthController);
+        controller = module.get<CvThemeController>(CvThemeController);
     });
 
     it('should be defined', () => {
