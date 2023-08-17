@@ -1,11 +1,5 @@
-import {
-    Module,
-    NestModule,
-    MiddlewareConsumer,
-    RequestMethod,
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthMiddleware } from '../auth/auth.middleware';
 import { CvThemeService } from './cv-theme.service';
 import { CvThemeController } from './cv-theme.controller';
 import { CvTheme } from './cv-theme.entity';
@@ -18,10 +12,4 @@ import { UserModule } from 'src/user/user.module';
     controllers: [CvThemeController],
     exports: [CvThemeService],
 })
-export class CvThemeModule implements NestModule {
-    public configure(consumer: MiddlewareConsumer): void {
-        consumer
-            .apply(AuthMiddleware)
-            .forRoutes({ path: 'create', method: RequestMethod.POST });
-    }
-}
+export class CvThemeModule {}
