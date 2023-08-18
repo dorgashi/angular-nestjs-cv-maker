@@ -11,8 +11,14 @@ import { User } from 'src/user/user.entity';
 export class CvController {
     constructor(private cvService: CvService) {}
     @Post('create')
-    async create(@Body() createCvDto: CreateCvDto): Promise<Cv> {
-        return this.cvService.create(createCvDto);
+    async create(
+        @Body() createCvDto: CreateCvDto,
+        @CurrentUser() currentUser: User
+    ): Promise<Cv> {
+        return this.cvService.create({
+            user_id: currentUser.id,
+            ...createCvDto,
+        });
     }
     @Get('list')
     async listForUser(@CurrentUser() currentUser: User): Promise<Cv[]> {

@@ -17,7 +17,9 @@ export class AuthService {
         private jwtService: JwtService
     ) {}
 
-    async logIn(loginUserDto: LoginUserDto): Promise<{ access_token: string }> {
+    async logIn(
+        loginUserDto: LoginUserDto
+    ): Promise<{ token: string; maxAge: number; expires: Date }> {
         const user = await this.userService.findByEmail(loginUserDto.email);
         try {
             const valid = await argon2.verify(
@@ -30,9 +32,14 @@ export class AuthService {
         }
 
         const payload = { sub: user.id, username: user.username };
+        const maxAge = 3600;
+        const now = new Date();
+        now.setTime(now.getTime() + maxAge * 1000); // +1 hour
 
         return {
-            access_token: await this.jwtService.signAsync(payload),
+            token: await this.jwtService.signAsync(payload),
+            maxAge,
+            expires: now,
         };
     }
 
@@ -47,14 +54,19 @@ export class AuthService {
     }
 
     async verifyTokenAndRetrieveUser(token: string): Promise<User | boolean> {
-        const valid = await this.jwtService.verify(token);
+        try {
+            const valid = await this.jwtService.verify(token);
 
-        if (!valid) return false;
+            if (!valid) return false;
 
-        const decoded = this.decodeToken(token);
+            const decoded = this.decodeToken(token);
 
-        if (!decoded) return false;
+            if (!decoded) return false;
 
-        return this.userService.findById(decoded.sub);
+            return this.userService.findById(decoded.sub);
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
     }
 }
