@@ -1,0 +1,195 @@
+{
+    "info": {
+        "_postman_id": "fa100c24-5c87-4bb0-9ef8-d872af7a6984",
+        "name": "Angular Nest.js CV Maker",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "14962727"
+    },
+    "item": [
+        {
+            "name": "User",
+            "item": [
+                {
+                    "name": "Create",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"username\": \"Dorant\",\r\n    \"email\": \"gashidorant@gmail.com\",\r\n    \"password\": \"doranti123\"\r\n}"
+                        },
+                        "url": {
+                            "raw": "{{apiUrl}}/user/register",
+                            "host": ["{{apiUrl}}"],
+                            "path": ["user", "register"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Auth",
+            "item": [
+                {
+                    "name": "Login",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.globals.set('authToken', pm.cookies.get('angularnestjscvmaker_jwt'));"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"email\": \"gashidorant@gmail.com\",\r\n    \"password\": \"doranti123\"\r\n}"
+                        },
+                        "url": {
+                            "raw": "{{apiUrl}}/auth/login",
+                            "host": ["{{apiUrl}}"],
+                            "path": ["auth", "login"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "CV",
+            "item": [
+                {
+                    "name": "Create",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"theme_id\": 2,\r\n    \"full_name\": \"name\",\r\n    \"job_title\": \"title\"\r\n}"
+                        },
+                        "url": {
+                            "raw": "{{apiUrl}}/cv/create",
+                            "host": ["{{apiUrl}}"],
+                            "path": ["cv", "create"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "List",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "exec": [""],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{apiUrl}}/cv/list",
+                            "host": ["{{apiUrl}}"],
+                            "path": ["cv", "list"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "CV Themes",
+            "item": [
+                {
+                    "name": "Create",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"title\": \"CV Theme 5\"\r\n}"
+                        },
+                        "url": {
+                            "raw": "{{apiUrl}}/cv-theme/create",
+                            "host": ["{{apiUrl}}"],
+                            "path": ["cv-theme", "create"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{auth_token}}",
+                "type": "string"
+            }
+        ]
+    },
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    "pm.request.headers.upsert({key: 'Cookie', value: 'angularnestjscvmaker_jwt=' +  pm.globals.get('authToken')});"
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [""]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "apiUrl",
+            "value": "http://localhost:3000/api",
+            "type": "string"
+        },
+        {
+            "key": "authToken",
+            "value": "",
+            "type": "string"
+        }
+    ]
+}

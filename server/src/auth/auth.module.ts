@@ -11,7 +11,10 @@ if (!process.env.JWT_SECRET) {
 @Module({
     imports: [
         UserModule,
-        JwtModule.register({ secret: process.env.JWT_SECRET }),
+        JwtModule.register({
+            secret: process.env.JWT_SECRET,
+            signOptions: { expiresIn: '60s' },
+        }),
     ],
     exports: [AuthService],
     controllers: [AuthController],

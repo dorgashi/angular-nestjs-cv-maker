@@ -8,11 +8,9 @@ export class AuthGuard implements CanActivate {
 
     canActivate(context: ExecutionContext): boolean | Observable<boolean> {
         const request = context.switchToHttp().getRequest();
-        const bearer = request.headers.authorization;
+        const token = request.cookies.angularnestjscvmaker_jwt;
 
-        if (!bearer) return false;
-
-        const token = bearer.split(' ')[1];
+        if (!token) return false;
 
         return new Observable<boolean>(observer => {
             this.authService.verifyTokenAndRetrieveUser(token).then(user => {

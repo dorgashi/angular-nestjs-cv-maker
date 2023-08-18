@@ -1,5 +1,4 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import {
     HttpException,
@@ -7,12 +6,15 @@ import {
     BadRequestException,
 } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
+import * as cookieParser from 'cookie-parser';
+import { AppModule } from './app.module';
 
 async function bootstrap(): Promise<void> {
     const app = await NestFactory.create(AppModule);
 
     app.useGlobalPipes(
         new ValidationPipe({
+            whitelist: true,
             exceptionFactory: (
                 validationErrors: ValidationError[] = []
             ): HttpException => {
@@ -31,6 +33,9 @@ async function bootstrap(): Promise<void> {
 
     const configService = app.get<ConfigService>(ConfigService);
     const port = configService.get('port');
+
+    const cookieSecret = configService.get('cookieSecret');
+    app.use(cookieParser(cookieSecret));
 
     console.info(`Nest.js app running on port ${port}`);
     await app.listen(port);

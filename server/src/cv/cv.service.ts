@@ -5,6 +5,10 @@ import { SomethingWentWrongException } from 'src/exceptions/something-went-wrong
 import { Cv } from './cv.entity';
 import { CreateCvDto } from './dto';
 
+interface CreateCvDtoWithUserId extends CreateCvDto {
+    user_id: number;
+}
+
 @Injectable()
 export class CvService {
     constructor(
@@ -12,7 +16,7 @@ export class CvService {
         private cvRepository: Repository<Cv>
     ) {}
 
-    async create(dto: CreateCvDto): Promise<Cv> {
+    async create(dto: CreateCvDtoWithUserId): Promise<Cv> {
         try {
             const cv = this.cvRepository.create(dto);
 
