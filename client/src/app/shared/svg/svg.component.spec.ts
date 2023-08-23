@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalComponent } from './modal.component';
+import { SvgComponent } from './svg.component';
 
-describe('ModalComponent', (): void => {
-    let component: ModalComponent;
-    let fixture: ComponentFixture<ModalComponent>;
+describe('SvgComponent', (): void => {
+    let component: SvgComponent;
+    let fixture: ComponentFixture<SvgComponent>;
 
     beforeEach((): void => {
         TestBed.configureTestingModule({
-            declarations: [ModalComponent],
+            declarations: [SvgComponent],
         });
-        fixture = TestBed.createComponent(ModalComponent);
+        fixture = TestBed.createComponent(SvgComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
