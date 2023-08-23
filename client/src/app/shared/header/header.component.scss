@@ -1,0 +1,7 @@
+.btn-settings {
+    .app-svg {
+        &:hover {
+            color: theme('colors.sky.500');
+        }
+    }
+}

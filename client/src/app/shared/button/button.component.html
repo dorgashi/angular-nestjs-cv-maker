@@ -1,0 +1,9 @@
+<button
+    [attr.data-modal-target]="modalTarget"
+    [attr.data-modal-toggle]="modalToggle"
+    [class]="classes"
+    type="button"
+    [style.width]="width || ''"
+    [style.height]="height || ''">
+    <ng-content></ng-content>
+</button>

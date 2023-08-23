@@ -1,0 +1,29 @@
+<div class="header flex p-4">
+    <div class="flex-1"></div>
+    <div class="auth-container inline-block flex">
+        <app-button
+            modalTarget="authModal"
+            modalToggle="authModal"
+            type="primary">
+            Log In
+            <app-svg
+                type="log-in"
+                width="14"
+                height="14"
+                class="inline-block text-slate-50 align-middle"></app-svg>
+        </app-button>
+        <app-button
+            modalTarget="settingsModal"
+            modalToggle="settingsModal"
+            type="clear"
+            class="btn-settings pl-2"
+            height="100%"
+            ><app-svg
+                type="settings"
+                width="24"
+                height="24"
+                class="inline-block text-slate-900 align-middle"></app-svg
+        ></app-button>
+    </div>
+</div>
+<app-auth-modal></app-auth-modal>
