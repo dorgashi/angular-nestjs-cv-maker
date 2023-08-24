@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+$alert-color: theme('colors.red.500');
+
+form {
+    .alert {
+        opacity: 0;
+        color: $alert-color;
+        padding: 5px 20px;
+        border: 1px solid $alert-color;
+        border-radius: 12px;
+        font-weight: 500;
+        font-size: 12px;
+    }
+
+    .alert.visible {
+        opacity: 1;
+    }
+}
+
+form.alert {
+    border: 1px solid $alert-color;
+}

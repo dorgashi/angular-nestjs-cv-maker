@@ -1,18 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
+import {
+    themeVariants,
+    ThemeVariant,
+    ThemeVariantMapping,
+} from '../../constants/theme-variants';
 
-const buttonTypes = ['primary', 'secondary', 'clear'] as const;
-type ButtonType = (typeof buttonTypes)[number];
-
-type ButtonClassMapping = {
-    [key in ButtonType]: string;
-};
-
-const buttonClassMapping: ButtonClassMapping = {
+const buttonClassMapping: ThemeVariantMapping = {
     primary:
         'text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-700 dark:hover:bg-blue-900 dark:focus:ring-blue-800',
     secondary: '',
     clear: '',
 };
+
+type ButtonType = 'button' | 'submit' | 'reset';
 
 @Component({
     selector: 'app-button',
@@ -22,7 +22,8 @@ const buttonClassMapping: ButtonClassMapping = {
 export class ButtonComponent implements OnInit {
     private sharedClasses = 'block';
 
-    @Input() public type: ButtonType = 'primary';
+    @Input() public variant: ThemeVariant = 'primary';
+    @Input() public type: ButtonType = 'button';
     @Input() public modalTarget: string | null = null;
     @Input() public modalToggle: string | null = null;
     @Input() public classes: string | null = null;
@@ -31,10 +32,11 @@ export class ButtonComponent implements OnInit {
     @Input() public height: string | null = null;
 
     ngOnInit(): void {
-        if (!buttonTypes.includes(this.type)) {
-            this.type = 'primary';
+        if (!themeVariants.includes(this.variant)) {
+            this.variant = 'primary';
         }
 
-        this.classes = this.sharedClasses + ' ' + buttonClassMapping[this.type];
+        this.classes =
+            this.sharedClasses + ' ' + buttonClassMapping[this.variant];
     }
 }

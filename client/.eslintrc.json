@@ -27,7 +27,10 @@
                         "style": "kebab-case"
                     }
                 ],
-                "@typescript-eslint/explicit-function-return-type": ["error", { "allowTypedFunctionExpressions": false }]
+                "@typescript-eslint/explicit-function-return-type": [
+                    "error",
+                    { "allowTypedFunctionExpressions": false }
+                ]
             }
         },
         {
@@ -37,7 +40,16 @@
                 "plugin:@angular-eslint/template/accessibility",
                 "plugin:prettier/recommended"
             ],
-            "rules": {"prettier/prettier": ["error", { "parser": "angular" }]}
+            "rules": {
+                "prettier/prettier": [
+                    "error",
+                    {
+                        "parser": "angular",
+                        "bracketSameLine": true,
+                        "jsxBracketSameLine": true
+                    }
+                ]
+            }
         }
     ]
 }

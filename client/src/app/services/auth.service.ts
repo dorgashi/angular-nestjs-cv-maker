@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -12,14 +12,14 @@ export class AuthService {
         this.http = httpClient;
     }
 
-    public login(username: string, password: string): void {
-        // this.http.get({
-        //     headers?: HttpHeaders | {[header: string]: string | string[]},
-        //     observe?: 'body' | 'events' | 'response',
-        //     params?: HttpParams|{[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>},
-        //     reportProgress?: boolean,
-        //     responseType?: 'arraybuffer'|'blob'|'json'|'text',
-        //     withCredentials?: boolean,
-        //   });
+    public login(email: string, password: string): Observable<object> {
+        return this.http.post(
+            `${environment.apiUrl}/auth/login`,
+            { email, password },
+            {
+                observe: 'response',
+                responseType: 'json',
+            }
+        );
     }
 }

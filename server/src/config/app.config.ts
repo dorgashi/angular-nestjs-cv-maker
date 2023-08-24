@@ -5,6 +5,7 @@ interface AppConfig {
     isProduction: boolean;
     port: number;
     domain: string;
+    clientOrigin: string;
     database: {
         host: string;
         port: number;
@@ -27,6 +28,7 @@ export const appConfig = (): AppConfig => ({
     isProduction: process.env.ENVIRONMENT == 'production',
     port: Number(process.env.PORT) || 3000,
     domain: process.env.DOMAIN,
+    clientOrigin: process.env.CLIENT_ORIGIN,
     database: {
         host: process.env.MYSQL_HOST,
         port: Number(process.env.MYSQL_PORT),

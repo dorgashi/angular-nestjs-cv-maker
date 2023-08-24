@@ -34,6 +34,9 @@ async function bootstrap(): Promise<void> {
     const configService = app.get<ConfigService>(ConfigService);
     const port = configService.get('port');
 
+    app.enableCors({ origin: [configService.get('clientOrigin')] });
+    console.log(configService.get('clientOrigin'));
+
     const cookieSecret = configService.get('cookieSecret');
     app.use(cookieParser(cookieSecret));
 
