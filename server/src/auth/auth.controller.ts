@@ -1,4 +1,11 @@
-import { Controller, Post, Body, Res } from '@nestjs/common';
+import {
+    Controller,
+    Post,
+    Body,
+    Res,
+    HttpCode,
+    HttpStatus,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { LoginUserDto } from '../user/dto';
@@ -11,6 +18,7 @@ export class AuthController {
         private authService: AuthService
     ) {}
     @Post('login')
+    @HttpCode(HttpStatus.OK)
     async logIn(
         @Body() loginUserDto: LoginUserDto,
         @Res({ passthrough: true }) response: Response
