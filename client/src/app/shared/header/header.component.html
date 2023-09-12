@@ -10,20 +10,23 @@
                 type="log-in"
                 width="14"
                 height="14"
-                class="inline-block text-slate-50 align-middle"></app-svg>
+                class="inline-block align-middle"></app-svg>
         </app-button>
-        <app-button
-            modalTarget="settingsModal"
-            modalToggle="settingsModal"
-            variant="clear"
-            class="btn-settings pl-2"
-            height="100%">
-            <app-svg
-                type="settings"
-                width="24"
-                height="24"
-                class="inline-block text-slate-900 align-middle"></app-svg>
-        </app-button>
+        <app-svg-button
+            type="settings"
+            class="pl-2"
+            dropDownToggle="settingsDropdown"></app-svg-button>
+        <app-dropdown-list id="settingsDropdown">
+            <span>
+                <a href="#" (click)="toggleDarkMode()"
+                    >Toggle Dark Mode</a
+                ></span
+            >
+            <span>Test 2</span>
+            <span>Test 3</span>
+            <span>Test 4</span>
+            <span>Test 5</span>
+        </app-dropdown-list>
     </div>
 </div>
 <app-auth-modal></app-auth-modal>

@@ -1,4 +1,4 @@
-export const themeVariants = ['primary', 'secondary', 'clear'] as const;
+export const themeVariants = ['primary', 'secondary', 'clear', 'icon'] as const;
 export type ThemeVariant = (typeof themeVariants)[number];
 
 export type ThemeVariantMapping = {

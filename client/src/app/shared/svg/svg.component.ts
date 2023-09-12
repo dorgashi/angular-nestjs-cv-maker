@@ -6,7 +6,7 @@ import { Component, Input, OnInit, HostBinding } from '@angular/core';
     styleUrls: ['./svg.component.scss'],
 })
 export class SvgComponent implements OnInit {
-    @HostBinding('class') class = 'app-svg';
+    @HostBinding('class') classes = 'app-svg';
 
     public href = '';
 
