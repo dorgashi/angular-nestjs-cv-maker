@@ -6,6 +6,8 @@ import { AuthModalComponent } from './auth-modal/auth-modal.component';
 import { HeaderComponent } from './header/header.component';
 import { ButtonComponent } from './input/button/button.component';
 import { SvgComponent } from './svg/svg.component';
+import { SvgButtonComponent } from './svg-button/svg-button.component';
+import { DropdownListComponent } from './dropdown-list/dropdown-list.component';
 
 @NgModule({
     declarations: [
@@ -14,6 +16,8 @@ import { SvgComponent } from './svg/svg.component';
         HeaderComponent,
         ButtonComponent,
         SvgComponent,
+        SvgButtonComponent,
+        DropdownListComponent,
     ],
     imports: [CommonModule, FormsModule, ReactiveFormsModule],
     exports: [
